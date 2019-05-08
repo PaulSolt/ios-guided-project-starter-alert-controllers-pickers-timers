@@ -24,14 +24,25 @@ class CountdownViewController: UIViewController {
         timeLabel.text = string(from: countdown.timeRemaining)
     }
     
+    func showAlert() {
+        let alert = UIAlertController(title: "Timer Finished", message: "Your countdown has finished.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//        alert.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
+    }
 
     @IBAction func startButtonPressed(_ sender: Any) {
         print("start")
+        countdown.duration = countdownPicker.duration
         countdown.start()
     }
     
     @IBAction func resetButtonPressed(_ sender: Any) {
         print("reset")
+        countdown.reset()
+        updateViews()
     }
     
     // 5.019769 ....  => 00:00:05.02
@@ -47,8 +58,9 @@ class CountdownViewController: UIViewController {
         return formatter
     }()
     
-    @IBOutlet var timeLabel: UILabel!
     @IBOutlet var startButton: UIButton!
+    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var countdownPicker: CountdownPicker!
     
     let countdown = Countdown()
 }
@@ -59,6 +71,6 @@ extension CountdownViewController: CountdownDelegate {
     }
     
     func countdownDidFinish() {
-        
+        showAlert()
     }
 }
