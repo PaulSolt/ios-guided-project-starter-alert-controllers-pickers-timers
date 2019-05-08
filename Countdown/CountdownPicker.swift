@@ -69,4 +69,10 @@ extension CountdownPicker: UIPickerViewDelegate {
         let timeValue = countdownPickerData[component][row]
         return timeValue
     }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("row: \(row)")
+        // TODO: add a delegate and call the method
+    }
 }

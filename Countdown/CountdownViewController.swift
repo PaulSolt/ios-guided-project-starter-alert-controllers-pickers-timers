@@ -21,7 +21,17 @@ class CountdownViewController: UIViewController {
     
     private func updateViews() {
 //        timeLabel.text = "\(countdown.timeRemaining)"
-        timeLabel.text = string(from: countdown.timeRemaining)
+//        timeLabel.text = string(from: countdown.timeRemaining)
+        
+        switch countdown.state {
+        case .reset:
+            timeLabel.text = string(from: countdown.duration)
+        case .started:
+            timeLabel.text = string(from: countdown.timeRemaining)
+        case .finished:
+            timeLabel.text = string(from: 0)
+        }
+        
     }
     
     func showAlert() {
@@ -41,6 +51,7 @@ class CountdownViewController: UIViewController {
     
     @IBAction func resetButtonPressed(_ sender: Any) {
         print("reset")
+        countdown.duration = countdownPicker.duration
         countdown.reset()
         updateViews()
     }
