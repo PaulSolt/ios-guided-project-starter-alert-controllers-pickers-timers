@@ -11,6 +11,7 @@ import Foundation
 protocol CountdownDelegate: AnyObject {
     func countdownDidUpdate(timeRemaining: TimeInterval)
     func countdownDidFinish()
+//    func countdownDidPause()
 }
 
 enum CountdownState {
@@ -53,16 +54,19 @@ class Countdown {
         
         if let stopDate = stopDate {
             let currentTime = Date()
+            print("currentTime: \(currentTime)")
+            print("stopDate: \(stopDate)")
             if currentTime <= stopDate {
                 // Timer is active, keep counting down
                 delegate?.countdownDidUpdate(timeRemaining: timeRemaining)
-                
+                print("timeRemaining: \(timeRemaining)")
             } else {
                 // Timer is finished, reset and stop counting down
                 state = .finished
                 cancelTimer()
                 self.stopDate = nil
                 delegate?.countdownDidFinish()
+                print("Finished!")
             }
         }
     }
